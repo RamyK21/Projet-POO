@@ -101,7 +101,12 @@ class Plateau:
 
 
     def ajouter_etablissements(self,nom:str,cout:int,valeur:int,couleur:str,categorie:str,rapport:int,nombre_ex:int):
-        self._list_etablissements.append(Etablissement(nom,cout,valeur,couleur,categorie,rapport,nombre_ex))
+        if categorie not in Etablissement.liste_categorie:
+            raise ValueError("Mauvaise catégorie")
+        elif couleur not in Etablissement.liste_couleur:
+            raise ValueError("Mauvaise couleur")
+        else:
+            self._list_etablissements.append(Etablissement(nom,cout,valeur,couleur,categorie,rapport,nombre_ex))
 
 
 Plateau=Plateau()
