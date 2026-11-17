@@ -97,7 +97,7 @@ class Plateau:
         self._list_monuments.append(Monuments(nom,prix))
 
 
-    def ajouter_etablissements(self,nom:str,cout:int,valeur:int,couleur:str,categorie:str,rapport:int,nombre_ex:int): #changer les attributs
+    def ajouter_etablissements(self,nom:str,cout:int,valeur:int,couleur:str,categorie:str,rapport:int,nombre_ex:int):
         self._list_etablissements.append(Etablissement(nom,cout,valeur,couleur,categorie,rapport,nombre_ex))
 
 
@@ -106,10 +106,22 @@ Plateau.ajouter_monuments("Gare",4)
 Plateau.ajouter_monuments("CentreCommercial",10)
 Plateau.ajouter_monuments("ParcAttraction",16)
 Plateau.ajouter_monuments("TourRadio",22)
-Plateau.ajouter_etablissements("Champsdeble",1,1,"bleu","champs",1,6)
-Plateau.ajouter_etablissements("Ferme",1,2,"bleu","ferme",1,6)
-Plateau.ajouter_etablissements("Boulangerie",1,(2,3),"vert","magasin",1,6)
-Plateau.ajouter_etablissements("Cafe",2,3,"rouge","cafe",1,6)
+Plateau.ajouter_etablissements("Champsdeble",1,[1],"bleu","champs",1,6)
+Plateau.ajouter_etablissements("Ferme",1,[2],"bleu","ferme",1,6)
+Plateau.ajouter_etablissements("Boulangerie",1,[2,3],"vert","magasin",1,6)
+Plateau.ajouter_etablissements("Cafe",2,[3],"rouge","cafe",1,6)
+Plateau.ajouter_etablissements("Superette",2,[4],"vert","magasin",3,6)
+Plateau.ajouter_etablissements("Foret",3,[5],"bleu","nature",1,6)
+Plateau.ajouter_etablissements("Fromagerie",5,[7],"vert","usine",3,6)
+Plateau.ajouter_etablissements("Fabriquedemeubles",3,[8],"vert","usine",3,6)
+Plateau.ajouter_etablissements("Mine",6,[9],"bleu","nature",5,6)
+Plateau.ajouter_etablissements("restaurant",3,[9,10],"rouge","cafe",2,6)
+Plateau.ajouter_etablissements("Verger",3,[10],"bleu","champs",3,6)
+Plateau.ajouter_etablissements("Fabriquedemeubles",2,[11,12],"vert","marche",2,6)
+Plateau.ajouter_etablissements("Centred'affaires",8,[6],"violet","ville",0,4)
+Plateau.ajouter_etablissements("Stade",6,[6],"violet","ville",2,4)
+Plateau.ajouter_etablissements("ChainedeTelevision",7,[6],"violet","ville",5,4)
+
 
 
 for i in range(4):
