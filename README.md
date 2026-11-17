@@ -60,7 +60,15 @@ class Etablissement:
         self._categorie:str = categorie
         self._rapport:int = rapport
         self._nombre_ex:int = nombre_ex
-    
+
+    @property
+    def nombre_ex(self):
+        return(self._nombre_ex)
+
+
+    def nombre_ex(self,nombre_ex):
+        self._nombre_ex=nombre_ex
+
 
 class Monuments:
     def __init__(self,nom:str,cout:int):
