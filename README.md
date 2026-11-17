@@ -83,7 +83,7 @@ class Plateau:
 
 
     def ajouter_etablissements(self,nom:str,cout:int,valeur:int,couleur:str,categorie:str,rapport:int,nombre_ex:int): #changer les attributs
-        self._list_etablissements.append(Etablissement(self,nom,cout,valeur,couleur,categorie,rapport,nombre_ex))
+        self._list_etablissements.append(Etablissement(nom,cout,valeur,couleur,categorie,rapport,nombre_ex))
 
 
 Plateau=Plateau()
