@@ -44,7 +44,16 @@ class Joueur:
         else:
             self._list_etablissements_acquis.append(etablissement)
 
-
+class Etablissement:
+    def __init__(self,nom,cout,valeur,couleur,categorie,rapport,nombre_ex):
+        self._nom = nom
+        self._cout = cout
+        self._valeur = valeur
+        self._couleur = couleur
+        self._categorie = categorie
+        self._rapport = rapport
+        self._nombre_ex = nombre_ex
+    
 
 class Monuments:
     def __init__(self,nom,cout):
@@ -73,8 +82,8 @@ class Plateau:
         self._list_monuments.append(Monuments(nom,prix))
 
 
-    def ajouter_etablissements(self,nom,prix): #changer les attributs
-        self._list_etablissements.append("quelque chose")
+    def ajouter_etablissements(self,nom,cout,valeur,couleur,categorie,rapport,nombre_ex): #changer les attributs
+        self._list_etablissements.append(Etablissement(self,nom,cout,valeur,couleur,categorie,rapport,nombre_ex))
 
 
 Plateau=Plateau()
@@ -82,7 +91,10 @@ Plateau.ajouter_monuments("Gare",4)
 Plateau.ajouter_monuments("CentreCommercial",10)
 Plateau.ajouter_monuments("ParcAttraction",16)
 Plateau.ajouter_monuments("TourRadio",22)
-
+Plateau.ajouter_etablissements("Champsdeble",1,1,"bleu","champs",1,6)
+Plateau.ajouter_etablissements("Ferme",1,2,"bleu","ferme",1,6)
+Plateau.ajouter_etablissements("Boulangerie",1,(2,3),"vert","magasin",1,6)
+Plateau.ajouter_etablissements("Cafe",2,3,"rouge","cafe",1,6)
 
 
 for i in range(4):
