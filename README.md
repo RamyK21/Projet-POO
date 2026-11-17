@@ -6,13 +6,13 @@ from abc import ABC, abstractmethod
 
 
 class Joueur:
-    def __init__(self,nom,IA:bool):
-        self._nom=nom
-        self._argent=3
-        self._list_monuments_acquis=[]
-        self._list_etablissements=[]  #rajouter deux établissements de base
-        self._nombre_dés=1
-        self._IA=IA
+    def __init__(self,nom:str,IA:bool):
+        self._nom:str=nom
+        self._argent:int=3
+        self._list_monuments_acquis:list=[]
+        self._list_etablissements:list=[]  #rajouter deux établissements de base
+        self._nombre_dés:int=1
+        self._IA:bool=IA
 
 
     @property
@@ -28,7 +28,7 @@ class Joueur:
     def gagnant(self): #renvoie True si le joueur a gagné la partie, False sinon
         return len(self._list_monuments_acquis==4)
 
-    def acheter_monument(self,monument):
+    def acheter_monument(self,monument:Monuments):
         if self._argent< monument._cout :
             raise ValueError("Pas assez d'argent")
         elif monument in self._list_monuments_acquis:
@@ -36,7 +36,7 @@ class Joueur:
         else:
             self._list_monuments_acquis.append(monument)
 
-    def acheter_etablissement(self,etablissement):
+    def acheter_etablissement(self,etablissement:Etablissement):
         if self._argent< etablissement._cout :
             raise ValueError("Pas assez d'argent")
         elif etablissement._nombre_ex==0:
@@ -45,23 +45,23 @@ class Joueur:
             self._list_etablissements_acquis.append(etablissement)
 
 class Etablissement:
-    def __init__(self,nom,cout,valeur,couleur,categorie,rapport,nombre_ex):
-        self._nom = nom
-        self._cout = cout
-        self._valeur = valeur
-        self._couleur = couleur
-        self._categorie = categorie
-        self._rapport = rapport
-        self._nombre_ex = nombre_ex
+    def __init__(self,nom:str,cout:int,valeur:int,couleur:str,categorie:str,rapport:int,nombre_ex:int):
+        self._nom:str = nom
+        self._cout:int = cout
+        self._valeur:int = valeur
+        self._couleur:str = couleur
+        self._categorie:str = categorie
+        self._rapport:int = rapport
+        self._nombre_ex:int = nombre_ex
     
 
 class Monuments:
-    def __init__(self,nom,cout):
-        self._nom=nom
-        self._cout=cout
+    def __init__(self,nom:str,cout:int):
+        self._nom:str=nom
+        self._cout:int=cout
 
-    def obtenu(self,Joueur):
-        if self._nom in Joueur._list_monuments:
+    def obtenu(self,joueur:Joueur):
+        if self._nom in joueur._list_monuments:
             return(True)
 
 
@@ -78,11 +78,11 @@ class Plateau:
     def list_etablissements(self):
         return(self._list_etablissements)
 
-    def ajouter_monuments(self,nom,prix):
+    def ajouter_monuments(self,nom:str,prix:int):
         self._list_monuments.append(Monuments(nom,prix))
 
 
-    def ajouter_etablissements(self,nom,cout,valeur,couleur,categorie,rapport,nombre_ex): #changer les attributs
+    def ajouter_etablissements(self,nom:str,cout:int,valeur:int,couleur:str,categorie:str,rapport:int,nombre_ex:int): #changer les attributs
         self._list_etablissements.append(Etablissement(self,nom,cout,valeur,couleur,categorie,rapport,nombre_ex))
 
 
