@@ -52,6 +52,8 @@ class Joueur:
 
 
 class Etablissement:
+    liste_couleur = ["bleu","vert","rouge","violet"]
+    liste_categorie = ["champs","ferme","magasin","cafe","nature","usine","marche","ville"]
     def __init__(self,nom:str,cout:int,valeur:int,couleur:str,categorie:str,rapport:int,nombre_ex:int):
         self._nom:str = nom
         self._cout:int = cout
