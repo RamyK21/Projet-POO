@@ -42,7 +42,13 @@ class Joueur:
         elif etablissement._nombre_ex==0:
             raise ValueError("Cet établissement n'est plus disponible")
         else:
-            self._list_etablissements_acquis.append(etablissement)
+            if etablissement not in self._list_etablissements_acquis:
+                self._list_etablissements_acquis.append([etablissement,1])
+            else:
+                for i in range(len(self._list_etablissements_acquis)):
+                    if self._list_etablissements_acquis[i][0]==etablissement._nom:
+                        self._list_etablissements_acquis[i][1]+=1
+
 
 class Etablissement:
     def __init__(self,nom:str,cout:int,valeur:int,couleur:str,categorie:str,rapport:int,nombre_ex:int):
