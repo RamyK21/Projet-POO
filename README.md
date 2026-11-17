@@ -41,10 +41,9 @@ class Joueur:
             raise ValueError("Pas assez d'argent")
         elif etablissement._nombre_ex==0:
             raise ValueError("Cet établissement n'est plus disponible")
-        elif etablissement in self._list_monuments_acquis:
-            raise ValueError("Tu possèdes déjà cet établissement")
         else:
             self._list_monuments_acquis.append(monument)
+
 
 
 class Monuments:
