@@ -10,7 +10,7 @@ class Joueur:
         self._nom:str=nom
         self._argent:int=3
         self._list_monuments_acquis:list=[]
-        self._list_etablissements:list=[]  #rajouter deux établissements de base
+        self._list_etablissements_acquis:list=[]  #rajouter deux établissements de base
         self._nombre_dés:int=1
         self._IA:bool=IA
 
