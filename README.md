@@ -39,9 +39,10 @@ class Joueur:
     def acheter_etablissement(self,etablissement:Etablissement):
         if self._argent< etablissement._cout :
             raise ValueError("Pas assez d'argent")
-        elif etablissement._nombre_ex==0:
+        elif etablissement.nombre_ex==0:
             raise ValueError("Cet établissement n'est plus disponible")
         else:
+            etablissement.nombre_ex(nombre_ex)
             if etablissement not in self._list_etablissements_acquis:
                 self._list_etablissements_acquis.append([etablissement,1])
             else:
