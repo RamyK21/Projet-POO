@@ -123,7 +123,8 @@ Plateau.ajouter_etablissements("Centred'affaires",8,[6],"violet","ville",0,4)
 Plateau.ajouter_etablissements("Stade",6,[6],"violet","ville",2,4)
 Plateau.ajouter_etablissements("ChainedeTelevision",7,[6],"violet","ville",5,4)
 
-
+# Michel=Joueur("Michel",False)
+# Michel.acheter_etablissement(Plateau._list_etablissements[0])
 
 for i in range(4):
     print(Plateau._list_monuments[i]._nom)
