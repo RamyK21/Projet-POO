@@ -4,6 +4,16 @@ import numpy as np
 import random
 from abc import ABC, abstractmethod 
 
+class De:
+    def __init__(self, seed=None): #le hasard est différent à chaque lancer puisque seed=None
+        self._hasard= random.Random(seed)
+
+    def lancer(self, nombre_des=1):
+        """Lance 1 ou 2 dés à 6 faces et renvoie la liste des résultats."""
+        if nombre_des not in (1, 2):
+            raise ValueError("Le nombre de dés doit être 1 ou 2.")
+        return [self._hasard.randint(1, 6) for _ in range(nombre_des)]
+    
 
 class Joueur:
     def __init__(self,nom:str,IA:bool):
