@@ -237,28 +237,6 @@ class Plateau:
             self._list_joueur=[]
             print("Joueurs dans l'ordre de jeu: {self._list_joueur}")
         
-
-
-    @property
-    def list_monuments(self):
-        return(self._list_monuments)
-
-    @property
-    def list_etablissements(self):
-        return(self._list_etablissements)
-
-    def ajouter_monuments(self,nom:str,prix:int):
-        self._list_monuments.append(Monuments(nom,prix))
-
-
-    def ajouter_etablissements(self,nom:str,cout:int,valeur:int,couleur:str,categorie:str,rapport:int,nombre_ex:int):
-        if categorie not in Etablissement.liste_categorie:
-            raise ValueError("Mauvaise catégorie")
-        elif couleur not in Etablissement.liste_couleur:
-            raise ValueError("Mauvaise couleur")
-        else:
-            self._list_etablissements.append(Etablissement(nom,cout,valeur,couleur,categorie,rapport,nombre_ex))
-
     def ajouter_joueur(self,nom:str,IA:bool):
         for joueur in self._list_joueur:
             if joueur.nom == nom:
@@ -271,31 +249,24 @@ class Plateau:
                 return True
         return False
 
-
     def demarrer_jeu(self):
         list_ordre=[] #COMPLETER LISTE ORDRE RAMY
         tour=list_ordre[0]
-        
+
         while not partie_terminee(self):
             jouer_action(self,tour)
             if tour==len(list_ordre-1):
                 tour=0
             else:
                 tour=tour+1
-    
-    def jouer_action(self,joueur):
-        nombre_des=1
-        for monument in joueur.list_monuments_acquis :
-            if monument.nom=="Gare":
-                nombre_des=int(input("Combien de dés veux-tu lancer ? (1 or 2)"))
-        lancer_de=De.lancer(nombre_des)
-        print(f"Ton lancer de dés est de lancer_de.")
-        for monument in joueur.list_monuments_acquis :
-            if monument.nom=="TourRadio":
-                relancer=input("Est-ce que tu veux relancer les dés ? (Y or N)")
-        if relancer=="Y":
-            lance_de=De.lancer(nombre_des)
-            print(f"Ton deuxième lancer de dés est de lancer_de.")
+
+    def etablissements_effet(self,joueur,lancer_de):
+        list_effets=[]
+        for etablissement in joueur.list_etablissements_acquis:
+            if etablissement[0].valeur==lancer_de:
+                list_effets.append(etablissement)
+        return(list_effets)
+        
 
 
 
