@@ -7,12 +7,22 @@ from abc import ABC, abstractmethod
 class De:
     def __init__(self, seed=None): #le hasard est différent à chaque lancer puisque seed=None
         self._hasard= random.Random(seed)
+        self._resultat = 0 
 
-    def lancer(self, nombre_des=1):
+    @property 
+    def resulat (self):
+        return self._resultat
+    
+    def lancer(self, nombre_des):
         """Lance 1 ou 2 dés à 6 faces et renvoie la liste des résultats."""
+        self._resultat = 0
         if nombre_des not in (1, 2):
             raise ValueError("Le nombre de dés doit être 1 ou 2.")
-        return [self._hasard.randint(1, 6) for _ in range(nombre_des)]
+        if nombre_des == 2 and "Gare" not in self.Joueur._liste_monuments_acquis:
+            raise ValueError("Vous ne possedez pas la Gare")
+        for _ in range(nombre_des):
+            self._resultat += self._hasard.randint(1, 6)
+        return [self._resulat]
     
 
 class Joueur:
@@ -38,28 +48,6 @@ class Joueur:
     def gagnant(self): #renvoie True si le joueur a gagné la partie, False sinon
         return len(self._list_monuments_acquis==4)
 
-    def acheter_monument(self,monument:Monuments):
-        if self._argent< monument._cout :
-            raise ValueError("Pas assez d'argent")
-        elif monument in self._list_monuments_acquis:
-            raise ValueError("Tu possèdes déjà ce monument")
-        else:
-            self._list_monuments_acquis.append(monument)
-
-    def acheter_etablissement(self,etablissement:Etablissement):
-        if self._argent< etablissement._cout :
-            raise ValueError("Pas assez d'argent")
-        elif etablissement.nombre_ex==0:
-            raise ValueError("Cet établissement n'est plus disponible")
-        else:
-            etablissement.nombre_ex(etablissement.nombre_exemp-1)
-            if etablissement not in self._list_etablissements_acquis:
-                self._list_etablissements_acquis.append([etablissement,1])
-            else:
-                for i in range(len(self._list_etablissements_acquis)):
-                    if self._list_etablissements_acquis[i][0]==etablissement._nom:
-                        self._list_etablissements_acquis[i][1]+=1
-
     @property
     def list_monuments_acquis(self):
         return self._list_monuments_acquis
@@ -82,12 +70,46 @@ class Etablissement:
         self._nombre_ex:int = nombre_ex
 
     @property
+    def nom(self,nombre_ex):
+        return self._nom
+    
+    @property
+    def cout(self):
+        return(self._cout)
+
+    @property
+    def valeur(self):
+        return(self._valeur)
+
+    @property
+    def couleur(self):
+        return(self._couleur)
+    
+    @property
+    def categorie(self):
+        return(self._categorie)
+
+    @property
+    def rapport(self):
+        return(self._rapport)
+
+    @property
     def nombre_exemp(self):
         return(self._nombre_ex)
-
-
-    def nombre_ex(self,nombre_ex):
-        self._nombre_ex=nombre_ex
+    
+    def acheter (self,etablissement : 'Etablissement'):
+        if self.Joueur.argent < self.cout :
+            raise ValueError ("Pas assez d'argent")
+        elif self.nombre_ex==0:
+            raise ValueError("Cet établissement n'est plus disponible")
+        else:
+            self._nombre_exemp-=1
+            if self.nom not in self.Joueur._list_etablissements_acquis:
+                self.Joueur._list_etablissements_acquis.append([etablissement,1])
+            else:
+                for i in range(len(self._list_etablissements_acquis)):
+                    if self.Joueur._list_etablissements_acquis[i][0]==self._nom:
+                        self.Joueur._list_etablissements_acquis[i][1]+=1
 
 class Champs_de_ble(Etablissement):
     def __init__(self):
@@ -158,7 +180,15 @@ class Monuments:
     def obtenu(self,joueur:Joueur):
         if self._nom in joueur._list_monuments:
             return(True)
-
+    
+    def acheter_monument(self,monument:'Monuments'):
+        if self.Joueur._argent< self._cout :
+            raise ValueError("Pas assez d'argent")
+        elif self.nom in self._list_monuments_acquis:
+            raise ValueError("Tu possèdes déjà ce monument")
+        else:
+            self.Joueur._list_monuments_acquis.append(monument)
+            
 
 class Plateau:
     def __init__(self):
