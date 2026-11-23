@@ -228,10 +228,15 @@ class OrdreJoueurs:
         return self._ordre
   
 class Plateau:
-    def __init__(self):
+    def __init__(self,ordre_joueurs: OrdreJoueurs |None=None):
         self._list_monuments=[]
         self._list_etablissements=[]
-        self._list_joueur=[]
+        if ordre_joueurs is not None:
+            self._list_joueur=ordre_joueurs.determiner_ordre()
+        else:
+            self._list_joueur=[]
+            print("Joueurs dans l'ordre de jeu: {self._list_joueur}")
+        
 
 
     @property
