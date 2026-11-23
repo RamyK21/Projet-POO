@@ -60,6 +60,10 @@ class Joueur:
                     if self._list_etablissements_acquis[i][0]==etablissement._nom:
                         self._list_etablissements_acquis[i][1]+=1
 
+    @property
+    def list_monuments_acquis(self):
+        return self._list_monuments_acquis
+
 
 class Etablissement:
     liste_couleur = ["bleu","vert","rouge","violet"]
