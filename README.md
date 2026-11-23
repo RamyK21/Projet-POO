@@ -185,6 +185,12 @@ class Plateau:
                 raise ValueError("Ce nom est déjà utilisé.")
         self._list_joueur.append(Joueur(nom,IA))
 
+    def partie_terminee(self):
+        for joueur in self._list_joueur:
+            if joueur.gagnant():
+                return True
+        return False
+
 
 Plateau=Plateau()
 Plateau.ajouter_monuments("Gare",4)
