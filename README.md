@@ -192,6 +192,21 @@ class Plateau:
         return False
 
 
+    def demarrer_jeu(self):
+        list_ordre=[] #COMPLETER LISTE ORDRE RAMY
+        tour=list_ordre[0]
+        
+        while not partie_terminee(self):
+            jouer_action(self,tour)
+            if tour==len(list_ordre-1):
+                tour=0
+            else:
+                tour=tour+1
+    
+    def jouer_action(self,joueur):
+        pass
+
+
 Plateau=Plateau()
 Plateau.ajouter_monuments("Gare",4)
 Plateau.ajouter_monuments("CentreCommercial",10)
