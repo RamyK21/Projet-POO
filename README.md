@@ -64,6 +64,10 @@ class Joueur:
     def list_monuments_acquis(self):
         return self._list_monuments_acquis
 
+    @property
+    def list_etablissements_acquis(self):
+        return self._list_etablissements_acquis
+
 
 class Etablissement:
     liste_couleur = ["bleu","vert","rouge","violet"]
