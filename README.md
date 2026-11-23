@@ -116,6 +116,18 @@ class Etablissement:
                     if self.Joueur._list_etablissements_acquis[i][0]==self._nom:
                         self.Joueur._list_etablissements_acquis[i][1]+=1
 
+    def activer_verte(self,etablissemnt : "Etablissement"):
+        if self.couleur == "verte" and self.valeur == self.Des._resultat :
+            self.Joueur.argent += self.rapport
+    
+    def activer_bleu(self,etablissemnt : "Etablissement"):
+        if self.couleur == "bleu" and self.valeur == self.Des._resultat :
+            self.Joueur.argent += self.rapport
+    
+    def activer_rouge (self,etablissemnt : "Etablissement"):
+        if self.couleur == "rouge" and self.valeur == self.Des._resultat :
+            self.Joueur.argent += self.rapport
+            
 class Champs_de_ble(Etablissement):
     def __init__(self):
         super().__init__("Champsdeble",1,[1],"bleu","champs",1,6)
@@ -167,6 +179,12 @@ class Marche_de_fruits_et_legumes(Etablissement):
 class Centre_d_affaires(Etablissement):
     def __init__(self):
         super().__init__("Centred'affaires",8,[6],"violet","ville",0,4)
+   
+    def activer(self, joueur : "Joueur",etablissment: "Etablissement"):
+        if joueur._nom not in Plateau._liste_joueur :
+            raise ValueError ("Ce Joueur n'est pas dans la partie")
+        if etablissment.nom not in joueur._liste_etablissements_acquis :
+            raise ValueError (f"{joueur._nom} ne possède pas {etablissment._nom}")
 
 class Stade(Etablissement):
     def __init__(self):
