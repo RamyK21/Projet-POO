@@ -194,7 +194,39 @@ class Monuments:
         else:
             self.Joueur._list_monuments_acquis.append(monument)
             
-
+class OrdreJoueurs:
+    def __init__(self,joueurs:list[str]):
+        if not 2<= len(joueurs)<=4:
+            raise ValueError("Il faut entre 2 et 4 joueurs")
+        self._joueurs:list[str]=joueurs
+        self._scores:dict[str,int]={}
+        self._ordre:list[str]=[]
+        
+    def lancer_des(self):
+        """Chaque joueur lance un dé"""
+        for joueur in self._joueurs:
+            score=random.randint(1,6)
+            self._scores[joueur]=score
+            print (f" {joueur} obtient {score}")
+            
+    def a_des_egalites(self)->bool:
+        """Renvoie True si au moins deux joueurs ont le meme score"""
+        scores= list(self._scores.values())
+        for score in scores:
+            if scores.count(score)>1:
+                return True
+        return False
+        
+    def determiner_ordre(self)->list[str]:
+        """Classe les joueurs par ordre décroissant; tout le monde relance en cas d'égalité"""
+        self.lancer_des()
+        while self.a_des_egalites():
+            print("Egalité! Tout le monde relance")
+            self.lancer_des()
+        tries=sorted(self._scores.items(), key=lambda item: item[1], reverse=True)
+        self._ordre= [joueur for joueur, _ in tries]
+        return self._ordre
+  
 class Plateau:
     def __init__(self):
         self._list_monuments=[]
