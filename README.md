@@ -242,7 +242,19 @@ class Plateau:
                 tour=tour+1
     
     def jouer_action(self,joueur):
-        pass
+        nombre_des=1
+        for monument in joueur.list_monuments_acquis :
+            if monument.nom=="Gare":
+                nombre_des=int(input("Combien de dés veux-tu lancer ? (1 or 2)"))
+        lancer_de=De.lancer(nombre_des)
+        print(f"Ton lancer de dés est de lancer_de.")
+        for monument in joueur.list_monuments_acquis :
+            if monument.nom=="TourRadio":
+                relancer=input("Est-ce que tu veux relancer les dés ? (Y or N)")
+        if relancer=="Y":
+            lance_de=De.lancer(nombre_des)
+            print(f"Ton deuxième lancer de dés est de lancer_de.")
+
 
 
 Plateau=Plateau()
