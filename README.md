@@ -156,6 +156,8 @@ class Plateau:
     def __init__(self):
         self._list_monuments=[]
         self._list_etablissements=[]
+        self._list_joueur=[]
+
 
     @property
     def list_monuments(self):
@@ -176,6 +178,12 @@ class Plateau:
             raise ValueError("Mauvaise couleur")
         else:
             self._list_etablissements.append(Etablissement(nom,cout,valeur,couleur,categorie,rapport,nombre_ex))
+
+    def ajouter_joueur(self,nom:str,IA:bool):
+        for joueur in self._list_joueur:
+            if joueur.nom == nom:
+                raise ValueError("Ce nom est déjà utilisé.")
+        self._list_joueur.append(Joueur(nom,IA))
 
 
 Plateau=Plateau()
