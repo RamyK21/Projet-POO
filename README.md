@@ -16,13 +16,18 @@ class De:
     def lancer(self, nombre_des):
         """Lance 1 ou 2 dés à 6 faces et renvoie la liste des résultats."""
         self._resultat = 0
+        self._Tour_bonus = False
         if nombre_des not in (1, 2):
             raise ValueError("Le nombre de dés doit être 1 ou 2.")
         if nombre_des == 2 and "Gare" not in self.Joueur._liste_monuments_acquis:
             raise ValueError("Vous ne possedez pas la Gare")
         for _ in range(nombre_des):
-            self._resultat += self._hasard.randint(1, 6)
+            d = self._hasard.randint(1, 6)
+            if self._resultat == d : 
+                self._Tour_bonus = True 
+            self._resultat += d
         return [self._resulat]
+    
     
 
 class Joueur:
