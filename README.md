@@ -82,7 +82,7 @@ class Joueur:
    
    
     def gagnant(self): #renvoie True si le joueur a gagné la partie, False sinon
-        return len(self._list_monuments_acquis==4)
+        return len(self._list_monuments_acquis)==4
    
     @property
     def list_monuments_acquis(self):
