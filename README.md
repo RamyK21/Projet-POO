@@ -28,7 +28,38 @@ class De:
             self._resultat += d
         return [self._resultat]
     
-    
+class Monuments:
+    def __init__(self,nom:str,cout:int):
+        self._nom:str=nom
+        self._cout:int=cout
+   
+    @property
+    def nom(self):
+      return self._nom
+
+    @property
+    def cout(self):
+      return self._cout
+  
+    def obtenu(self, joueur: 'Joueur'):
+        if self._nom in joueur._list_monuments:
+            return(True)
+
+class Gare (Monuments):
+    def __init__(self):
+        super().__init__("Gare",4)
+        
+class Centre_commercial (Monuments):
+    def __init__(self):
+        super().__init__("Centre commercial",10)
+
+class Parc_dattraction (Monuments):
+    def __init__(self):
+        super().__init__("Parc d'attraction",16)
+        
+class Tour_radio (Monuments):
+    def __init__(self):
+        super().__init__("Tour radio",22)    
 
 class Joueur:
     def __init__(self,nom:str,IA:bool):
@@ -241,40 +272,6 @@ class Chaine_de_Television(Etablissement):
                 proprietaire.gagner(montant)
         
 
-class Monuments:
-    def __init__(self,nom:str,cout:int):
-        self._nom:str=nom
-        self._cout:int=cout
-
-    def obtenu(self,joueur:Joueur):
-        if self._nom in joueur._list_monuments:
-            return(True)
-    
-    def acheter_monument(self,monument:'Monuments'):
-        if self.Joueur._argent< self._cout :
-            raise ValueError("Pas assez d'argent")
-        elif self.nom in self._list_monuments_acquis:
-            raise ValueError("Tu possèdes déjà ce monument")
-        else:
-            self.Joueur._list_monuments_acquis.append(monument)
-
-class Gare (Monuments):
-    def __init__(self):
-        super().__init__("Gare",4)
-        
-class Centre_commercial (Monuments):
-    def __init__(self):
-        super().__init__("Centre commercial",10)
-
-
-
-class Parc_dattraction (Monuments):
-    def __init__(self):
-        super().__init__("Parc d'attraction",16)
-        
-class Tour_radio (Monuments):
-    def __init__(self):
-        super().__init__("Tour radio",22)
                     
 class OrdreJoueurs:
     def __init__(self,joueurs:list[str]):
