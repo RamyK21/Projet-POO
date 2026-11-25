@@ -134,9 +134,10 @@ class Etablissement:
         return(self._nombre_ex)
     
     def gain (self , proprietaire: Joueur):
-        rapport = self._rapport
+        montant = self._rapport
         if self._categorie in ("magasin", "cafe") and proprietaire.possede_monument("CentreCommercial"):
-            rapport +=1
+            montant +=1
+        return montant
 
     def activer(self,proprietaire: Joueur, joueur_actif: Joueur, plateau: "Plateau", resultat_de: int):
         if self.couleur == "vert":
