@@ -10,7 +10,7 @@ class De:
         self._resultat = 0 
 
     @property 
-    def resulat (self):
+    def resultat (self):
         return self._resultat
     
     def lancer(self, nombre_des):
@@ -26,7 +26,7 @@ class De:
             if self._resultat == d : 
                 self._Tour_bonus = True 
             self._resultat += d
-        return [self._resulat]
+        return [self._resultat]
     
     
 
@@ -61,6 +61,23 @@ class Joueur:
     def list_etablissements_acquis(self):
         return self._list_etablissements_acquis
 
+    def acheter (self, nom : str, plateau : 'Plateau'):
+        etab = plateau.etablissement(nom)
+        if self._argent < etab.cout :
+            raise ValueError ("Pas assez d'argent")
+        elif etab.nombre_exemp==0:
+            raise ValueError("Cet établissement n'est plus disponible")
+        elif etab._couleur == "violet" and etab in self._list_etablissements_acquis:
+            raise ValueError ("Vous ne pouvez avoir qu'un exemplaire")
+        else:
+            self._argent -= etab._valeur
+            self._nombre_ex-=1
+            if self.nom not in self.Joueur._list_etablissements_acquis:
+                self.Joueur._list_etablissements_acquis.append([etab,1])
+            else:
+                for i in range(len(self._list_etablissements_acquis)):
+                    if self.Joueur._list_etablissements_acquis[i][0]==self._nom:
+                        self.Joueur._list_etablissements_acquis[i][1]+=1
 
 class Etablissement:
     liste_couleur = ["bleu","vert","rouge","violet"]
@@ -102,31 +119,26 @@ class Etablissement:
     def nombre_exemp(self):
         return(self._nombre_ex)
     
-    def acheter (self,etablissement : 'Etablissement'):
-        if self.Joueur.argent < self.cout :
-            raise ValueError ("Pas assez d'argent")
-        elif self.nombre_ex==0:
-            raise ValueError("Cet établissement n'est plus disponible")
-        else:
-            self._nombre_exemp-=1
-            if self.nom not in self.Joueur._list_etablissements_acquis:
-                self.Joueur._list_etablissements_acquis.append([etablissement,1])
-            else:
-                for i in range(len(self._list_etablissements_acquis)):
-                    if self.Joueur._list_etablissements_acquis[i][0]==self._nom:
-                        self.Joueur._list_etablissements_acquis[i][1]+=1
+    def gain (self , proprietaire: Joueur):
+        rapport = self._rapport
+        if self._categorie in ("magasin", "cafe") and proprietaire.possede_monument("CentreCommercial"):
+            rapport +=1
 
-    def activer_verte(self,etablissemnt : "Etablissement"):
-        if self.couleur == "verte" and self.valeur == self.Des._resultat :
-            self.Joueur.argent += self.rapport
+    def activer(self,proprietaire: Joueur, joueur_actif: Joueur, plateau: "Plateau", resultat_de: int):
+        if self.couleur == "vert":
+            for i in range (len(self.valeur)):
+                if self._valeur[i] == self.Des._resultat :
+                    joueur_actif._argent += self.rapport
     
-    def activer_bleu(self,etablissemnt : "Etablissement"):
-        if self.couleur == "bleu" and self.valeur == self.Des._resultat :
-            self.Joueur.argent += self.rapport
+        if self.couleur == "bleu" :
+            for i in range (len(self.valeur)):
+                if self._valeur[i] == self.Des._resultat :
+                    joueur_actif._argent += self.rapport
     
-    def activer_rouge (self,etablissemnt : "Etablissement"):
-        if self.couleur == "rouge" and self.valeur == self.Des._resultat :
-            self.Joueur.argent += self.rapport
+        if self.couleur == "rouge" :
+            for i in range (len(self.valeur)):
+                if self._valeur[i] == self.Des._resultat :
+                    joueur_actif._argent -= self.rapport
             
 class Champs_de_ble(Etablissement):
     def __init__(self):
@@ -211,7 +223,25 @@ class Monuments:
             raise ValueError("Tu possèdes déjà ce monument")
         else:
             self.Joueur._list_monuments_acquis.append(monument)
-            
+
+class Gare (Monuments):
+    def __init__(self):
+        super().__init__("Gare",4)
+        
+class Centre_commercial (Monuments):
+    def __init__(self):
+        super().__init__("Centre commercial",10)
+
+
+
+class Parc_dattraction (Monuments):
+    def __init__(self):
+        super().__init__("Parc d'attraction",16)
+        
+class Tour_radio (Monuments):
+    def __init__(self):
+        super().__init__("Tour radio",22)
+                    
 class OrdreJoueurs:
     def __init__(self,joueurs:list[str]):
         if not 2<= len(joueurs)<=4:
@@ -289,10 +319,6 @@ class Plateau:
 
 
 Plateau=Plateau()
-Plateau.ajouter_monuments("Gare",4)
-Plateau.ajouter_monuments("CentreCommercial",10)
-Plateau.ajouter_monuments("ParcAttraction",16)
-Plateau.ajouter_monuments("TourRadio",22)
 
 # Michel=Joueur("Michel",False)
 # Michel.acheter_etablissement(Plateau._list_etablissements[0])
