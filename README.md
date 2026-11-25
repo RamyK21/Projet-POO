@@ -153,7 +153,10 @@ class Etablissement:
             for i in range (len(self.valeur)):
                 if self._valeur[i] == self.Des._resultat :
                     joueur_actif._argent -= self.rapport
-            
+
+     def activer_violet(self, propriétaire : "Joueur",plateau: 'Plateau'):
+        pass
+        
 class Champs_de_ble(Etablissement):
     def __init__(self):
         super().__init__("Champsdeble",1,[1],"bleu","champs",1,6)
@@ -206,7 +209,8 @@ class Centre_d_affaires(Etablissement):
     def __init__(self):
         super().__init__("Centred'affaires",8,[6],"violet","ville",0,4)
    
-    def activer(self, joueur : "Joueur",etablissment: "Etablissement"):
+    def activer_violet(self, propriétaire : "Joueur",plateau: 'Plateau'):
+        # question choix joueur et etablissement avec vérification
         if joueur._nom not in Plateau._liste_joueur :
             raise ValueError ("Ce Joueur n'est pas dans la partie")
         if etablissment.nom not in joueur._liste_etablissements_acquis :
