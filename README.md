@@ -180,7 +180,7 @@ class Etablissement:
 
     
     def activer(self, proprietaire: Joueur, joueur_actif: Joueur, plateau: "Plateau", resultat_de: int):
-        if self.couleur == "vert" and proprietaire is joueur_actif:
+        if self._couleur == "vert" and proprietaire is joueur_actif:
             for i in range (len(self.valeur)):
                 if self._valeur[i] == self.Des._resultat :
                     montant = self.gain(proprietaire)
