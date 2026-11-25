@@ -279,6 +279,7 @@ class Plateau:
     def __init__(self,ordre_joueurs: OrdreJoueurs |None=None):
         self._list_monuments=[]
         self._list_etablissements=[]
+        self._catalogue = {}
         if ordre_joueurs is not None:
             self._list_joueur=ordre_joueurs.determiner_ordre()
         else:
