@@ -139,21 +139,29 @@ class Etablissement:
             montant +=1
         return montant
 
-    def activer(self,proprietaire: Joueur, joueur_actif: Joueur, plateau: "Plateau", resultat_de: int):
-        if self.couleur == "vert":
-            for i in range (len(self.valeur)):
-                if self._valeur[i] == self.Des._resultat :
-                    joueur_actif._argent += self.rapport
     
-        if self.couleur == "bleu" :
+    def activer(self, proprietaire: Joueur, joueur_actif: Joueur, plateau: "Plateau", resultat_de: int):
+        if self.couleur == "vert" and proprietaire is joueur_actif:
             for i in range (len(self.valeur)):
                 if self._valeur[i] == self.Des._resultat :
-                    joueur_actif._argent += self.rapport
+                    montant = self.gain(proprietaire)
+                    self.gain
+                    joueur_actif.paie(montant)
     
-        if self.couleur == "rouge" :
+        if self.couleur == "bleu"  :
             for i in range (len(self.valeur)):
                 if self._valeur[i] == self.Des._resultat :
-                    joueur_actif._argent -= self.rapport
+                    montant = self._gain(proprietaire)
+                    proprietaire._argent += montant
+    
+        if self.couleur == "rouge" and proprietaire is not joueur_actif:
+            for i in range (len(self.valeur)):
+                if self._valeur[i] == self.Des._resultat :
+                    montant = joueur_actif._paye_limite(self._gain(proprietaire))
+                    proprietaire._argent += montant
+                    
+        elif self._couleur == "violet" and proprietaire is joueur_actif :
+            self._activer_violet(proprietaire,plateau)
 
      def activer_violet(self, propriétaire : "Joueur",plateau: 'Plateau'):
         pass
