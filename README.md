@@ -145,7 +145,7 @@ class Etablissement:
         self._nombre_ex:int = nombre_ex
 
     @property
-    def nom(self,nombre_ex):
+    def nom(self):
         return self._nom
     
     @property
@@ -169,7 +169,7 @@ class Etablissement:
         return(self._rapport)
 
     @property
-    def nombre_exemp(self):
+    def nombre_ex(self):
         return(self._nombre_ex)
     
     def gain (self , proprietaire: Joueur):
