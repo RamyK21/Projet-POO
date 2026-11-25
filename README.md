@@ -38,29 +38,29 @@ class Joueur:
         self._list_etablissements_acquis:list=[]  #rajouter deux établissements de base
         self._nombre_dés:int=1
         self._IA:bool=IA
-
-
+   
+   
     @property
     def nom(self):
         return(self._nom)
-
-
+   
+   
     @property
     def argent(self):
         return(self._argent)
-
-
+   
+   
     def gagnant(self): #renvoie True si le joueur a gagné la partie, False sinon
         return len(self._list_monuments_acquis==4)
-
+   
     @property
     def list_monuments_acquis(self):
         return self._list_monuments_acquis
-
+   
     @property
     def list_etablissements_acquis(self):
         return self._list_etablissements_acquis
-
+   
     def acheter (self, nom : str, plateau : 'Plateau'):
         etab = plateau.etablissement(nom)
         if self._argent < etab.cout :
@@ -78,7 +78,16 @@ class Joueur:
                 for i in range(len(self._list_etablissements_acquis)):
                     if self.Joueur._list_etablissements_acquis[i][0]==self._nom:
                         self.Joueur._list_etablissements_acquis[i][1]+=1
-
+    
+    def payer (self, montant : int) :
+        if self._argent < montant :
+            raise ValueError("pas assez d'argent")
+    
+    def payer_limite(self, montant : int) :
+        pay_max = min(self._argent, montant)
+        self._argent-= pay_max
+        return pay_max
+                       
 class Etablissement:
     liste_couleur = ["bleu","vert","rouge","violet"]
     liste_categorie = ["champs","ferme","magasin","cafe","nature","usine","marche","ville"]
