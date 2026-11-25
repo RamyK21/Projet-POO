@@ -99,7 +99,7 @@ class Joueur:
         etab = plateau.etablissement(nom)
         if self._argent < etab.cout :
             raise ValueError ("Pas assez d'argent")
-        elif etab.nombre_exemp==0:
+        elif etab.nombre_ex==0:
             raise ValueError("Cet établissement n'est plus disponible")
         elif etab._couleur == "violet" and etab in self._list_etablissements_acquis:
             raise ValueError ("Vous ne pouvez avoir qu'un exemplaire")
