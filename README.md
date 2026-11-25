@@ -82,7 +82,9 @@ class Joueur:
     def payer (self, montant : int) :
         if self._argent < montant :
             raise ValueError("pas assez d'argent")
-    
+        else :
+            self._argent -= montant
+            
     def payer_limite(self, montant : int) :
         pay_max = min(self._argent, montant)
         self._argent-= pay_max
