@@ -106,7 +106,7 @@ class Joueur:
         else:
             self._argent -= etab._valeur
             self._nombre_ex-=1
-            if self.nom not in self.Joueur._list_etablissements_acquis:
+            if self._nom not in self.Joueur._list_etablissements_acquis:
                 self.Joueur._list_etablissements_acquis.append([etab,1])
             else:
                 for i in range(len(self._list_etablissements_acquis)):
