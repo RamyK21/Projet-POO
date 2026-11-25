@@ -78,7 +78,10 @@ class Joueur:
                 for i in range(len(self._list_etablissements_acquis)):
                     if self.Joueur._list_etablissements_acquis[i][0]==self._nom:
                         self.Joueur._list_etablissements_acquis[i][1]+=1
-    
+
+    def paie (self,montant : int):
+        self._argent += montant 
+
     def payer (self, montant : int) :
         if self._argent < montant :
             raise ValueError("pas assez d'argent")
@@ -216,6 +219,13 @@ class Stade(Etablissement):
 class Chaine_de_Television(Etablissement):
     def __init__(self):
         super().__init__("ChainedeTelevision",7,[6],"violet","ville",5,4)
+    
+    def activer_violet(self, proprietaire : "Joueur",plateau: 'Plateau'):
+        #cible question avec vérification
+        for autre in plateau.joueurs :
+            if autre is not proprietaire :
+                montant = autre._payer_limite(self._rapport)
+                proprietaire.gagner(montant)
         
 
 class Monuments:
