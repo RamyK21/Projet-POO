@@ -290,7 +290,13 @@ class Plateau:
             if joueur.nom == nom:
                 raise ValueError("Ce nom est déjà utilisé.")
         self._list_joueur.append(Joueur(nom,IA))
-
+    
+    def etablissment (self, nom : str):
+        if nom not in self._catalogue :
+            raise ValueError(f"{nom} n'est pas dans le jeu ")
+        else :
+            return (self._catalogue[nom])
+   
     def partie_terminee(self):
         for joueur in self._list_joueur:
             if joueur.gagnant():
