@@ -91,7 +91,10 @@ class Joueur:
     @property
     def list_etablissements_acquis(self):
         return self._list_etablissements_acquis
-   
+    
+    def possede_monuments(self, monuments :Monuments ):
+        if monuments is in self._list_monuments_acquis:
+        
     def acheter (self, nom : str, plateau : 'Plateau'):
         etab = plateau.etablissement(nom)
         if self._argent < etab.cout :
@@ -110,6 +113,11 @@ class Joueur:
                     if self.Joueur._list_etablissements_acquis[i][0]==self._nom:
                         self.Joueur._list_etablissements_acquis[i][1]+=1
 
+    def acheter_monuments(self, monuments: Monuments):
+       if possede_monuments(monuments.nom) :
+           raise ValueError("")
+           raise ValueError ("Vous n'avez pas assez d'argent")
+           
     def paie (self,montant : int):
         self._argent += montant 
 
