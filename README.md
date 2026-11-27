@@ -113,11 +113,15 @@ class Joueur:
                 for i in range(len(self._list_etablissements_acquis)):
                     if self.Joueur._list_etablissements_acquis[i][0]==self._nom:
                         self.Joueur._list_etablissements_acquis[i][1]+=1
-
+    
     def acheter_monuments(self, monuments: Monuments):
-       if possede_monuments(monuments.nom) :
-           raise ValueError("")
-           raise ValueError ("Vous n'avez pas assez d'argent")
+        if self.possede_monuments(monuments) :
+            raise ValueError(f"Vous possedez déjà {monuments.nom}")
+        if self._argent < monuments._cout :
+            raise ValueError ("Vous n'avez pas assez d'argent")
+        else :
+            self.list_monuments_acquis.append(monuments)
+            self.argent -= self.payer(monuments.cout)
 
     def paie (self,montant : int):
         self._argent += montant
