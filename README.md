@@ -216,7 +216,7 @@ class Etablissement:
         elif self._couleur == "violet" and proprietaire is joueur_actif :
             self._activer_violet(proprietaire,plateau)
 
-    def activer_violet(self, propriétaire : "Joueur",plateau: 'Plateau'):
+    def activer_violet(self, propriétaire : "Joueur",plateau: 'Plateau'): #abstract method ?
         pass
 
 class Champs_de_ble(Etablissement):
