@@ -26,7 +26,7 @@ class De:
             if self._resultat == d :
                 self._Tour_bonus = True
             self._resultat += d
-        return [self._resultat]
+        return self._resultat
 
 class Monuments:
     def __init__(self,nom:str,cout:int):
