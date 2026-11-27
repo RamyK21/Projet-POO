@@ -381,7 +381,65 @@ class Plateau:
                 list_effets.append(etablissement)
         return(list_effets)
 
+    def jouer_action(self,tour):
+        nombre_des=1
+        for monument in tour._list_etablissements_acquis:
+            if monument.nom=="Gare":
+                nombre_des=int(input("Combien de dés veux-tu lancer ? (1 or 2)"))
+        lancer_valeur=De.lancer(nombre_des)
+        print(f"Ton lancer de dés a fait", lancer_valeur)
 
+        for monument in tour._list_etablissements_acquis:
+            if monument.nom=="TourRadio":
+                relancer=input("Voulez-vous relancer les dés ? (Y or N)")
+        if relancer=="Y":
+            lancer_valeur=De.lancer(nombre_des)
+            print(f"Ton lancer de dés a fait", lancer_valeur)
+
+        for joueur in self._list_joueur:
+                for etablissement in joueur.list_etablissements_acquis:
+                    if etablissement.valeur== lancer_valeur:
+                        etablissement.activer(joueur, tour, "Plateau", lancer_valeur) ### bizarre de mettre plateau et la valeur des dés
+
+        for etablissement in tour.list_etablissements_acquis:
+            etablissement.activer(joueur, tour, "Plateau", lancer_valeur)
+
+        print(f"Vous avez tour.argent pièces.")
+
+
+        achat=False
+        etablissements_achetables=tour.etablissements_achetables() ### créer la fonction qui renvoie les établissement pouvant être achetés
+        nombre_etablissements_achetables=len(etablissements_achetables)
+        if nombre_etablissements_achetables==0:
+            print("Vous ne pouvez acheter aucun établissement.")
+        else:
+            print("Voici les établissements que vous pouvez acheter :")
+            for i in range (nombre_etablissements_achetables):
+                print("etablissements_achetables[i].nom")
+            achat_etablissement=input("Souhaitez-vous acheter un établissement ? (Y or N)")
+            if achat_etablissement==Y:
+                nom_etablissement_acheter=input("Quel établissement voulez-vous acheter ?") ### vérifier qu'il fait partie de la liste
+                tour.acheter(nom_etablissement_acheter,self)
+                print("Vous avez acheté", nom_etablissement_acheter)
+                print(f"Vous avez tour.argent pièces.")
+                achat=True
+
+
+        if achat==False:
+            monuments_achetables=tour.monuments_achetables() ### créer la fonction qui renvoie les monuments pouvant être achetés
+            nombre_monuments_achetables=len(etablissements_achetables)
+            if nombre_monuments_achetables==0:
+                print("Vous ne pouvez acheter aucun monument.")
+            else:
+                print("Voici les établissements que vous pouvez acheter :")
+                for i in range (nombre_etablissements_achetables):
+                    print("etablissements_achetables[i].nom")
+                achat_monument=input("Souhaitez-vous acheter un établissement ? (Y or N)")
+                if achat_monument==Y:
+                    nom_monument_acheter=input("Quel monument voulez-vous acheter ?") ### vérifier qu'il fait partie de la liste
+                    tour.acheter_monuments(nom_monument_acheter)
+                    print("Vous avez acheté", nom_monument_acheter)
+                    print(f"Vous avez tour.argent pièces.")
 
 
 Plateau=Plateau()
