@@ -345,7 +345,7 @@ class Plateau:
             self._list_joueur=ordre_joueurs.determiner_ordre()
         else:
             self._list_joueur=[]
-        print(f"Joueurs dans l'ordre de jeu: {self._list_joueur}")
+        print("Joueurs dans l'ordre de jeu: {self._list_joueur}")
 
     def ajouter_joueur(self,nom:str,IA:bool):
         for joueur in self._list_joueur:
@@ -353,7 +353,7 @@ class Plateau:
                 raise ValueError("Ce nom est déjà utilisé.")
         self._list_joueur.append(Joueur(nom,IA))
 
-    def etablissement (self, nom : str):
+    def etablissment (self, nom : str):
         if nom not in self._catalogue :
             raise ValueError(f"{nom} n'est pas dans le jeu ")
         else :
@@ -370,7 +370,7 @@ class Plateau:
         tour=list_ordre[0]
 
         while not partie_terminee(self):
-            jouer_action(self,tour)
+            self.jouer_action(self,tour)
             if tour==len(list_ordre-1):
                 tour=0
             else:
@@ -383,29 +383,31 @@ class Plateau:
                 list_effets.append(etablissement)
         return(list_effets)
 
+
+
     def jouer_action(self,tour):
         nombre_des=1
-        for monument in tour._list_etablissements_acquis:
+        for monument in tour.list_etablissements_acquis:
             if monument.nom=="Gare":
                 nombre_des=int(input("Combien de dés veux-tu lancer ? (1 or 2)"))
-        lancer_valeur=De.lancer(nombre_des)
+        [lancer_valeur,double]=De.lancer(nombre_des)
         print(f"Ton lancer de dés a fait", lancer_valeur)
 
-        for monument in tour._list_etablissements_acquis:
-            if monument.nom=="TourRadio":
+        for monument in tour.list_etablissements_acquis:
+            if monument.nom=="Tour Radio":
                 relancer=input("Voulez-vous relancer les dés ? (Y or N)")
         if relancer=="Y":
-            lancer_valeur=De.lancer(nombre_des)
+            [lancer_valeur,double]=De.lancer(nombre_des)
             print(f"Ton lancer de dés a fait", lancer_valeur)
 
         for joueur in self._list_joueur:
                 for etablissement in joueur.list_etablissements_acquis:
-                    etablissement.activer(joueur, tour, "Plateau", lancer_valeur) ### bizarre de mettre plateau et la valeur des dés
+                    etablissement.activer(joueur, tour, "Plateau", lancer_valeur[0]) ### bizarre de mettre plateau et la valeur des dés
 
         for etablissement in tour.list_etablissements_acquis:
-            etablissement.activer(tour, tour, "Plateau", lancer_valeur)
+            etablissement.activer(tour, tour, "Plateau", lancer_valeur[0])
 
-        print(f"Vous avez tour.argent pièces.")
+        print(f"Vous avez {tour.argent} pièces.")
 
 
         achat=False
@@ -443,6 +445,10 @@ class Plateau:
                     print(f"Vous avez tour.argent pièces.")
 
         ### si le joueur possède le parc d'attractions et a fait un double, on remet son nom au début de la liste des tours
+        for monument in tour.list_etablissements_acquis:
+            if monument.nom=="Parc d'attraction" and double==True:
+                self.jouer_action(tour)
+
 
 
 Plateau=Plateau()
