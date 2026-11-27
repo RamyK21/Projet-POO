@@ -5,13 +5,20 @@ import random
 from abc import ABC, abstractmethod
 
 class De:
-    def __init__(self, seed=None): #le hasard est différent à chaque lancer puisque seed=None
+    def __init__(self, seed=None,joueur:None): #le hasard est différent à chaque lancer puisque seed=None
         self._hasard= random.Random(seed)
         self._resultat = 0
+        self._joueur=joueur
+        self._Tour_bonus=False
 
     @property
     def resultat (self):
         return self._resultat
+    
+    @property 
+    def tour_bonus(self):
+        return self._Tour_bonus
+        
 
     def lancer(self, nombre_des):
         """Lance 1 ou 2 dés à 6 faces et renvoie la liste des résultats."""
@@ -19,14 +26,16 @@ class De:
         self._Tour_bonus = False
         if nombre_des not in (1, 2):
             raise ValueError("Le nombre de dés doit être 1 ou 2.")
-        if nombre_des == 2 and "Gare" not in self.Joueur._liste_monuments_acquis:
+        if nombre_des == 2 and self._joueur is not None and "Gare" not in self.Joueur._liste_monuments_acquis:
             raise ValueError("Vous ne possedez pas la Gare")
+        tirages=[]
         for _ in range(nombre_des):
             d = self._hasard.randint(1, 6)
-            if self._resultat == d :
-                self._Tour_bonus = True
-            self._resultat += d
-        return self._resultat
+            tirages.append(d)
+            self._resultat+=d 
+        if nombre_des==2 and tirages[0]==tirages[1]:
+            self._Tour_bonus=True
+        return self._resultat, self.Tour_bonus
 
 class Monuments:
     def __init__(self,nom:str,cout:int):
