@@ -93,8 +93,22 @@ class Joueur:
         return self._list_etablissements_acquis
 
     def possede_monuments(self, monuments :Monuments ):
-        if monuments in self._list_monuments_acquis:
-            pass
+        for m in range (len(self.list_monuments_acquis)):
+            if m == monuments :
+                return True
+   
+    def ajouter_etablissement (self , etab : 'Etablissement'):
+        if etab.nom in self._list_etablissements_acquis :
+            self._list_etablissements_acquis[etab.nom][1]+=1
+        else :
+            self._list_etablissements_acquis.append([etab,1])
+            
+    def retire_etablissment (self, nom :str ):
+        etab , qte = self.list_etablissements_acquis[nom]
+        if qte == 1 :
+            del self._list_etablissements_acquis[nom]
+        else :
+            self._list_etablissements_acquis[nom][1] -= 1
 
     def acheter (self, nom : str, plateau : 'Plateau'):
         etab = plateau.etablissement(nom)
@@ -102,17 +116,12 @@ class Joueur:
             raise ValueError ("Pas assez d'argent")
         elif etab.nombre_ex==0:
             raise ValueError("Cet établissement n'est plus disponible")
-        elif etab._couleur == "violet" and etab in self._list_etablissements_acquis:
+        elif etab._couleur == "violet" and etab.nom in self._list_etablissements_acquis:
             raise ValueError ("Vous ne pouvez avoir qu'un exemplaire")
         else:
-            self._argent -= etab._valeur
-            self._nombre_ex-=1
-            if self._nom not in self.Joueur._list_etablissements_acquis:
-                self.Joueur._list_etablissements_acquis.append([etab,1])
-            else:
-                for i in range(len(self._list_etablissements_acquis)):
-                    if self.Joueur._list_etablissements_acquis[i][0]==self._nom:
-                        self.Joueur._list_etablissements_acquis[i][1]+=1
+            self._payer(etab._valeur)
+            self._nombre_ex-=1 # il faut le changer avec la liste du plateau
+            self.ajouter_etablissement(etab)
     
     def acheter_monuments(self, monuments: Monuments):
         if self.possede_monuments(monuments) :
@@ -120,8 +129,8 @@ class Joueur:
         if self._argent < monuments._cout :
             raise ValueError ("Vous n'avez pas assez d'argent")
         else :
+            self.payer(monuments.cout)
             self.list_monuments_acquis.append(monuments)
-            self.argent -= self.payer(monuments.cout)
 
     def paie (self,montant : int):
         self._argent += montant
@@ -272,7 +281,13 @@ class Centre_d_affaires(Etablissement):
 class Stade(Etablissement):
     def __init__(self):
         super().__init__("Stade",6,[6],"violet","ville",2,4)
-
+    
+    def activer_violet(self, propriétaire, plateau):
+        for autre in plateau._list._joueur:
+            montant = autre.payer_limite(self._rapport)
+            proprietaire.paie(montant)
+            print(f"{autre.nom} paye {montant} à {propritaire.nom}")
+            
 class Chaine_de_Television(Etablissement):
     def __init__(self):
         super().__init__("ChainedeTelevision",7,[6],"violet","ville",5,4)
