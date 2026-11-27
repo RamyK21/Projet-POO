@@ -401,6 +401,7 @@ class Plateau:
             print(f"Ton lancer de dés a fait", lancer_valeur)
 
         for joueur in self._list_joueur:
+            if joueur!=tour:
                 for etablissement in joueur.list_etablissements_acquis:
                     etablissement.activer(joueur, tour, "Plateau", lancer_valeur[0]) ### bizarre de mettre plateau et la valeur des dés
 
