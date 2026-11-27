@@ -398,8 +398,7 @@ class Plateau:
 
         for joueur in self._list_joueur:
                 for etablissement in joueur.list_etablissements_acquis:
-                    if etablissement.valeur== lancer_valeur:
-                        etablissement.activer(joueur, tour, "Plateau", lancer_valeur) ### bizarre de mettre plateau et la valeur des dés
+                    etablissement.activer(joueur, tour, "Plateau", lancer_valeur) ### bizarre de mettre plateau et la valeur des dés
 
         for etablissement in tour.list_etablissements_acquis:
             etablissement.activer(joueur, tour, "Plateau", lancer_valeur)
@@ -415,10 +414,10 @@ class Plateau:
         else:
             print("Voici les établissements que vous pouvez acheter :")
             for i in range (nombre_etablissements_achetables):
-                print("etablissements_achetables[i].nom")
+                print(f"{etablissements_achetables[i].nom} pour {etablissements_achetables[i].cout} pièces")
             achat_etablissement=input("Souhaitez-vous acheter un établissement ? (Y or N)")
             if achat_etablissement==Y:
-                nom_etablissement_acheter=input("Quel établissement voulez-vous acheter ?") ### vérifier qu'il fait partie de la liste
+                nom_etablissement_acheter=input("Quel établissement voulez-vous acheter ?") ### vérifier qu'il fait partie de la liste et plutôt demander un chiffre lié à l'établissement'
                 tour.acheter(nom_etablissement_acheter,self)
                 print("Vous avez acheté", nom_etablissement_acheter)
                 print(f"Vous avez tour.argent pièces.")
@@ -440,6 +439,8 @@ class Plateau:
                     tour.acheter_monuments(nom_monument_acheter)
                     print("Vous avez acheté", nom_monument_acheter)
                     print(f"Vous avez tour.argent pièces.")
+
+        ### si le joueur possède le parc d'attractions et a fait un double, on remet son nom au début de la liste des tours
 
 
 Plateau=Plateau()
