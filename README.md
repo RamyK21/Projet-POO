@@ -283,7 +283,7 @@ class Stade(Etablissement):
         super().__init__("Stade",6,[6],"violet","ville",2,4)
     
     def activer_violet(self, propriétaire, plateau):
-        for autre in plateau._list._joueur:
+        for autre in plateau._list._joueur: #mettre getter
             montant = autre.payer_limite(self._rapport)
             proprietaire.paie(montant)
             print(f"{autre.nom} paye {montant} à {propritaire.nom}")
