@@ -328,7 +328,7 @@ class Plateau:
             self._list_joueur=ordre_joueurs.determiner_ordre()
         else:
             self._list_joueur=[]
-            print("Joueurs dans l'ordre de jeu: {self._list_joueur}")
+        print(f"Joueurs dans l'ordre de jeu: {self._list_joueur}")
 
     def ajouter_joueur(self,nom:str,IA:bool):
         for joueur in self._list_joueur:
