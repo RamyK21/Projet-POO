@@ -215,8 +215,8 @@ class Etablissement:
 
         elif self._couleur == "violet" and proprietaire is joueur_actif :
             for i in range (len(self.valeur)):
-            if self._valeur[i] == resultat_de :
-            self._activer_violet(proprietaire,plateau)
+                if self._valeur[i] == resultat_de :
+                     self._activer_violet(proprietaire,plateau)
 
     def activer_violet(self, propriétaire : "Joueur",plateau: 'Plateau'): #abstract method ?
         pass
