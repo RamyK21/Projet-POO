@@ -401,7 +401,7 @@ class Plateau:
                     etablissement.activer(joueur, tour, "Plateau", lancer_valeur) ### bizarre de mettre plateau et la valeur des dés
 
         for etablissement in tour.list_etablissements_acquis:
-            etablissement.activer(joueur, tour, "Plateau", lancer_valeur)
+            etablissement.activer(tour, tour, "Plateau", lancer_valeur)
 
         print(f"Vous avez tour.argent pièces.")
 
